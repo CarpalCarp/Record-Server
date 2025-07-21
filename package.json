@@ -1,0 +1,16 @@
+{
+  "name": "record-server",
+  "version": "1.0.0",
+  "description": "A simple server to manage records",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "author": "Matias Galante",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.10"
+  }
+}
