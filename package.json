@@ -2,9 +2,9 @@
   "name": "record-server",
   "version": "1.0.0",
   "description": "A simple server to manage records",
-  "main": "main.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node main.js"
+    "start": "node app.js"
   },
   "author": "Matias Galante",
   "license": "MIT",
