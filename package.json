@@ -7,7 +7,7 @@
     "start": "node main.js"
   },
   "author": "Matias Galante",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "express": "^5.1.0",
     "morgan": "^1.10.1",
