@@ -1,7 +1,8 @@
-const express = require('express');
+import { Request, Response } from 'express';
 const cors = require('cors');
-const morgan = require('morgan');
-const recordRoutes = require('./routes/record_routes');
+import morgan from 'morgan';
+import express from 'express';
+import { router } from './routes/record_routes';
 
 const app = express();
 
@@ -15,8 +16,8 @@ app.use(express.json());
 // log request details to the console
 app.use(morgan('dev'));
 
-app.use('/app', recordRoutes);
+app.use('/app', router);
 
-app.use((req, res) => {
+app.use((req: Request, res: Response) => {
   res.status(404).send('Route not found');
 });
