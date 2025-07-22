@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Record } from '../types/Record';
+import { Record } from '../types/record';
 import fs from 'fs';
 
 export const updateRecord = (req: Request, res: Response) => {
