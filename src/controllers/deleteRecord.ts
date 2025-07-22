@@ -1,8 +1,14 @@
 import { Request, Response } from 'express';
-import { Record } from '../types/record';
+import { Record } from '../types/Record';
+import { verifyRecord } from '../util/validate';
 import fs from 'fs';
 
 export const deleteRecord = (req: Request, res: Response) => {
+  const result = verifyRecord(req.body);
+  if (result.type !== 'ok') {
+    return res.status(400).send(result.message);
+  }
+
   const id = parseInt(req.params.id);
   const file = fs.readFileSync('./data/records.json', 'utf-8');
   const dataClone = structuredClone(JSON.parse(file));

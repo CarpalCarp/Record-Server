@@ -4,8 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateRecord = void 0;
+const validate_1 = require("../util/validate");
 const fs_1 = __importDefault(require("fs"));
 const updateRecord = (req, res) => {
+    const result = (0, validate_1.verifyRecord)(req.body);
+    if (result.type !== 'ok') {
+        return res.status(400).send(result.message);
+    }
     const id = parseInt(req.params.id);
     const file = fs_1.default.readFileSync('./data/records.json', 'utf-8');
     const dataClone = structuredClone(JSON.parse(file));

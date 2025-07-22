@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Record } from '../types/record';
+import { Record } from '../types/Record';
 import fs from 'fs';
 
 export const getRecordById = (req: Request, res: Response) => {
