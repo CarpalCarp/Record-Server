@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-const cors = require('cors');
+import cors from 'cors';
 import morgan from 'morgan';
 import express from 'express';
 import { router } from './routes/record_routes';

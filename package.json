@@ -9,6 +9,7 @@
   "author": "Matias Galante",
   "license": "MIT",
   "dependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/morgan": "^1.9.10",
     "@types/node": "^24.1.0",
