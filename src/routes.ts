@@ -7,6 +7,7 @@ import { updateRecord } from './controllers/updateRecord.ts';
 
 export const router = express.Router();
 
+// Records
 router.get('/records', getRecords);
 router.get('/records/:id', getRecordById);
 router.post('/records', addRecord);
