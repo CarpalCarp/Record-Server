@@ -1,3 +1,6 @@
+Run:
+- npm start
+
 Versioning:
 
 - Node v24.5.0
