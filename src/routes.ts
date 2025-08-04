@@ -1,9 +1,9 @@
 import express from 'express';
-import { addRecord } from './controllers/addRecord';
-import { deleteRecord } from './controllers/deleteRecord';
-import { getRecordById } from './controllers/getRecordById';
-import { getRecords } from './controllers/getRecords';
-import { updateRecord } from './controllers/updateRecord';
+import { addRecord } from './controllers/addRecord.ts';
+import { deleteRecord } from './controllers/deleteRecord.ts';
+import { getRecordById } from './controllers/getRecordById.ts';
+import { getRecords } from './controllers/getRecords.ts';
+import { updateRecord } from './controllers/updateRecord.ts';
 
 export const router = express.Router();
 

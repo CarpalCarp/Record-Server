@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
+import types from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import express from 'express';
-import { router } from './routes';
+import { router } from './routes.ts'
 
 const app = express();
 
@@ -18,6 +18,6 @@ app.use(morgan('dev'));
 
 app.use('/app', router);
 
-app.use((req: Request, res: Response) => {
+app.use((req: types.Request, res: types.Response) => {
   res.status(404).send('Route not found');
 });

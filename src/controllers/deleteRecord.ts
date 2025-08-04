@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
-import { Record } from '../types/Record';
-import { verifyRecord } from '../util/validate';
+import express from 'express';
+import type { Record } from '../types/Record.ts';
+import { verifyRecord } from '../util/validate.ts';
 import fs from 'fs';
 
-export const deleteRecord = (req: Request, res: Response) => {
+export const deleteRecord = (req: express.Request, res: express.Response) => {
   const result = verifyRecord(req.body);
   if (result.type !== 'ok') {
     return res.status(400).send(result.message);

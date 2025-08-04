@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
-import { Record } from '../types/Record';
+import express from 'express';
+import type { Record } from '../types/Record.ts';
 import fs from 'fs';
 
-export const getRecordById = (req: Request, res: Response) => {
+export const getRecordById = (req: express.Request, res: express.Response) => {
   const file = fs.readFileSync('./data/records.json', 'utf-8');
   const data = JSON.parse(file);
   const record = data.records.find((record: Record) => record.id === parseInt(req.params.id));

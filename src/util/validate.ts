@@ -1,4 +1,4 @@
-import { Record } from '../types/Record';
+import type { Record } from '../types/Record.ts';
 
 export const verifyRecord = (record: Record): { type: string, message: string } => {
   try {
