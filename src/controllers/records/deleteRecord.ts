@@ -1,4 +1,6 @@
 import { FileStorage } from '../../../storage/FileStorage';
+import { IFileStorage } from '../../../storage/IFileStorage';
+import { UnreachableCaseError } from '../../shared/UnreachableCaseError';
 import type { Record } from '../../types/Record';
 import { Controller, Delete, Route, SuccessResponse, Tags, Response, Path } from 'tsoa';
 
@@ -25,19 +27,38 @@ export class DeleteRecordController extends Controller {
       fileStorage: new FileStorage()
     };
 
-    const data = deps.fileStorage.readFile('./data/records.json');
-    const dataClone = structuredClone(data);
-    const record = dataClone.records.find((record: Record) => record.id === id);
-    const index = dataClone.records.indexOf(record);
-
-    if (index === -1) {
+    const result = deleteRecord(deps, id);
+    if (result.type === 'ok') {
+      this.setStatus(200);
+      return { message: result.message };
+    } if (result.type === 'notFound') {
       this.setStatus(404);
-      return { message: 'Record not found' };
+      return { message: result.message };
+    } else {
+      throw new UnreachableCaseError();
     }
 
-    dataClone.records.splice(index, 1);
-    deps.fileStorage.writeFile('./data/records.json', dataClone);
-    this.setStatus(200);
-    return { message: `Record with id: ${id} removed` };
   }
+}
+
+interface Dependencies {
+  fileStorage: IFileStorage
+}
+
+type Exits = { type: 'ok', message: string } |
+{ type: 'notFound', message: string };
+
+const deleteRecord = (deps: Dependencies, id: number): Exits => {
+  const data = deps.fileStorage.readFile('./data/records.json');
+  const dataClone = structuredClone(data);
+  const record = dataClone.records.find((record: Record) => record.id === id);
+  const index = dataClone.records.indexOf(record);
+
+  if (index === -1) {
+    return { type: 'notFound', message: 'Record not found' };
+  }
+
+  dataClone.records.splice(index, 1);
+  deps.fileStorage.writeFile('./data/records.json', dataClone);
+  return { type: 'ok', message: `Record with id: ${id} removed` };
 }

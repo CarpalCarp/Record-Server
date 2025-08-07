@@ -1,7 +1,9 @@
 import { verifyRecord } from '../../util/validate.ts';
-import { Body, Controller, Post, Route, SuccessResponse, Tags } from 'tsoa';
+import { Body, Controller, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
 import { Record } from '../../types/Record';
 import { FileStorage } from '../../../storage/FileStorage.ts';
+import { IFileStorage } from '../../../storage/IFileStorage.ts';
+import { UnreachableCaseError } from '../../shared/UnreachableCaseError.ts';
 
 @Route('/app/records')
 export class AddRecordController extends Controller {
@@ -14,6 +16,11 @@ export class AddRecordController extends Controller {
     200,
     'OK'
   )
+  @Response(
+    400,
+    'badRequest',
+    'Invalid record submitted'
+  )
   public async addRecordController(
     @Body() body: Record
   ): Promise<{ message: string }> {
@@ -21,20 +28,39 @@ export class AddRecordController extends Controller {
       fileStorage: new FileStorage()
     };
 
-    const result = verifyRecord(body);
-    if (result.type !== 'ok') {
+    const result = addRecord(deps, body);
+    if (result.type === 'ok') {
+      this.setStatus(200);
+      return { message: result.message };
+    } else if (result.type === 'badRequest') {
       this.setStatus(400);
       return { message: result.message };
+    } else {
+      throw new UnreachableCaseError();
     }
-    const data = deps.fileStorage.readFile('./data/records.json');
-    const newRecords = [
-      ...data.records,
-      body
-    ];
-
-    deps.fileStorage.writeFile('./data/records.json', { records: newRecords });
-
-    this.setStatus(200);
-    return { message: `Record with id: ${body.id} added` };
   }
+}
+
+interface Dependencies {
+  fileStorage: IFileStorage
+}
+
+type Exits = { type: 'ok', message: string } |
+{ type: 'badRequest', message: string };
+
+
+const addRecord = (deps: Dependencies, body: Record): Exits => {
+  const result = verifyRecord(body);
+  if (result.type !== 'ok') {
+    return { type: 'badRequest', message: result.message };
+  }
+  const data = deps.fileStorage.readFile('./data/records.json');
+  const newRecords = [
+    ...data.records,
+    body
+  ];
+
+  deps.fileStorage.writeFile('./data/records.json', { records: newRecords });
+
+  return { type: 'ok', message: `Record with id: ${body.id} added` };
 }

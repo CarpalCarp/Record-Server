@@ -1,4 +1,6 @@
 import { FileStorage } from '../../../storage/FileStorage';
+import { IFileStorage } from '../../../storage/IFileStorage';
+import { UnreachableCaseError } from '../../shared/UnreachableCaseError';
 import type { Record } from '../../types/Record';
 import { Get, Route, SuccessResponse, Response, Tags, Path, Controller } from 'tsoa';
 
@@ -18,20 +20,40 @@ export class GetRecordByIdController extends Controller {
     404,
     'Not Found')
   public async getRecordByIdController(
-    @Path() id: string
+    @Path() id: number
   ): Promise<Record[] | { message: string }> {
     const deps = {
       fileStorage: new FileStorage()
     };
-    const data = deps.fileStorage.readFile('./data/records.json');
-    const record = data.records.find((record: Record) => record.id === parseInt(id));
 
-    if (record) {
+    const result = getRecordById(deps, id);
+    if (result.type === 'ok') {
       this.setStatus(200);
-      return record;
-    } else {
+      return result.value;
+    } else if (result.type === 'notFound') {
       this.setStatus(404);
-      return { message: 'Record not found' }
+      return { message: result.message };
+    } else {
+      throw new UnreachableCaseError();
     }
+  }
+}
+
+interface Dependencies {
+  fileStorage: IFileStorage
+}
+
+type Exits = { type: 'ok', value: Record[] } |
+{ type: 'notFound', message: string };
+
+
+const getRecordById = (deps: Dependencies, id: number): Exits => {
+  const data = deps.fileStorage.readFile('./data/records.json');
+  const record = data.records.find((record: Record) => record.id === id);
+
+  if (record) {
+    return { type: 'ok', value: record };
+  } else {
+    return { type: 'notFound', message: 'Record not found' };
   }
 }

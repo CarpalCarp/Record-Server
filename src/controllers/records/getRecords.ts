@@ -1,6 +1,7 @@
 import { Controller, Get, Route, SuccessResponse, Tags } from 'tsoa';
 import { Record } from '../../types/Record';
 import { FileStorage } from '../../../storage/FileStorage';
+import { IFileStorage } from '../../../storage/IFileStorage';
 
 @Route('/app/records')
 export class GetRecordsController extends Controller {
@@ -17,7 +18,20 @@ export class GetRecordsController extends Controller {
     const deps = {
       fileStorage: new FileStorage()
     };
-    const data = deps.fileStorage.readFile('./data/records.json');
-    return data.records;
+    const result = getRecords(deps);
+
+    this.setStatus(200);
+    return result.value;
   }
+}
+
+interface Dependencies {
+  fileStorage: IFileStorage
+}
+
+type Exits = { type: 'ok', value: Record[] };
+
+const getRecords = (deps: Dependencies): Exits => {
+  const data = deps.fileStorage.readFile('./data/records.json');
+  return { type: 'ok', value: data.records };
 }
