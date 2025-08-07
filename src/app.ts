@@ -23,8 +23,10 @@ app.use(morgan('dev'));
 
 RegisterRoutes(app);
 
-app.use((req: express.Request, res: express.Response) => {
-  res.status(404).send('Route not found');
+app.use(function notFoundHandler(_req, res: ExResponse) {
+  res.status(404).send({
+    message: "Not Found",
+  });
 });
 
 app.use(function errorHandler(

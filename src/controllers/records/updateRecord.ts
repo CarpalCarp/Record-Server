@@ -23,7 +23,7 @@ export class UpdateRecordController extends Controller {
   public async updateRecordController(
     @Path() id: number,
     @Body() body: Record
-  ): Promise<any> {
+  ): Promise<{ message: string }> {
     const deps = {
       fileStorage: new FileStorage()
     };
