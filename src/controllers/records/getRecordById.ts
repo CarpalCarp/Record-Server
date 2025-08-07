@@ -21,7 +21,7 @@ export class GetRecordByIdController extends Controller {
     'Not Found')
   public async getRecordByIdController(
     @Path() id: number
-  ): Promise<Record[] | { message: string }> {
+  ): Promise<Record | { message: string }> {
     const deps = {
       fileStorage: new FileStorage()
     };
@@ -43,7 +43,7 @@ interface Dependencies {
   fileStorage: IFileStorage
 }
 
-type Exits = { type: 'ok', value: Record[] } |
+type Exits = { type: 'ok', value: Record } |
 { type: 'notFound', message: string };
 
 

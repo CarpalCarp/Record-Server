@@ -1,6 +1,5 @@
 import type { Record } from '../../types/Record';
 import { Controller, Route, SuccessResponse, Tags, Response, Path, Body, Put } from 'tsoa';
-import { verifyRecord } from '../../util/validate';
 import { FileStorage } from '../../../storage/FileStorage';
 import { IFileStorage } from '../../../storage/IFileStorage';
 import { UnreachableCaseError } from '../../shared/UnreachableCaseError';
@@ -55,11 +54,6 @@ type Exits = { type: 'ok', message: string } |
 { type: 'notFound', message: string };
 
 const updateRecord = (deps: Dependencies, id: number, body: Record): Exits => {
-  const result = verifyRecord(body);
-  if (result.type !== 'ok') {
-    return { type: 'badRequest', message: result.message };
-  }
-
   const data = deps.fileStorage.readFile('./data/records.json');
   const dataClone = structuredClone(data);
   const record = dataClone.records.find((record: Record) => record.id === id);

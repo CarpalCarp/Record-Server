@@ -1,4 +1,6 @@
+import { Record } from '../src/types/Record';
+
 export interface IFileStorage {
-  readFile(filePath: string): any
-  writeFile(filePath: string, data: any): void
+  readFile(filePath: string): { records: Record[] }
+  writeFile(filePath: string, data: { records: Record[] }): void
 }

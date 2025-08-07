@@ -122,7 +122,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsGetRecordByIdController_getRecordByIdController: Record<string, TsoaRoute.ParameterSchema> = {
-                id: {"in":"path","name":"id","required":true,"dataType":"string"},
+                id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.get('/app/records/:id',
             ...(fetchMiddlewares<RequestHandler>(GetRecordByIdController)),

@@ -1,4 +1,4 @@
-import { verifyRecord } from '../../util/validate.ts';
+// import { verifyRecord } from '../../util/validate.ts';
 import { Body, Controller, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
 import { Record } from '../../types/Record';
 import { FileStorage } from '../../../storage/FileStorage.ts';
@@ -50,10 +50,6 @@ type Exits = { type: 'ok', message: string } |
 
 
 const addRecord = (deps: Dependencies, body: Record): Exits => {
-  const result = verifyRecord(body);
-  if (result.type !== 'ok') {
-    return { type: 'badRequest', message: result.message };
-  }
   const data = deps.fileStorage.readFile('./data/records.json');
   const newRecords = [
     ...data.records,
