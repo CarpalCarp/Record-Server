@@ -32,9 +32,6 @@ export class UpdateRecordController extends Controller {
     if (result.type === 'ok') {
       this.setStatus(200);
       return { message: result.message };
-    } else if (result.type === 'badRequest') {
-      this.setStatus(400);
-      return { message: result.message };
     } else if (result.type === 'notFound') {
       this.setStatus(404);
       return { message: result.message };
@@ -50,7 +47,6 @@ interface Dependencies {
 }
 
 type Exits = { type: 'ok', message: string } |
-{ type: 'badRequest', message: string } |
 { type: 'notFound', message: string };
 
 const updateRecord = (deps: Dependencies, id: number, body: Record): Exits => {

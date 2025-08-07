@@ -32,9 +32,6 @@ export class AddRecordController extends Controller {
     if (result.type === 'ok') {
       this.setStatus(200);
       return { message: result.message };
-    } else if (result.type === 'badRequest') {
-      this.setStatus(400);
-      return { message: result.message };
     } else {
       throw new UnreachableCaseError();
     }
@@ -45,9 +42,7 @@ interface Dependencies {
   fileStorage: IFileStorage
 }
 
-type Exits = { type: 'ok', message: string } |
-{ type: 'badRequest', message: string };
-
+type Exits = { type: 'ok', message: string };
 
 const addRecord = (deps: Dependencies, body: Record): Exits => {
   const data = deps.fileStorage.readFile('./data/records.json');
