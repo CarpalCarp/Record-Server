@@ -4,11 +4,13 @@
   "description": "A server to manage records",
   "main": "app.ts",
   "scripts": {
-    "start": "npx tsoa routes & ts-node ./src/app.ts"
+    "start": "npx tsoa routes & ts-node ./src/app.ts",
+    "test": "mocha ./test/**/*.mocha.ts --require ts-node/register"
   },
   "author": "Matias Galante",
   "license": "MIT",
   "dependencies": {
+    "@types/chai": "^5.2.2",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/mocha": "^10.0.10",

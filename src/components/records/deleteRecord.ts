@@ -48,7 +48,7 @@ interface Dependencies {
 type Exits = { type: 'ok', message: string } |
 { type: 'notFound', message: string };
 
-const deleteRecord = (deps: Dependencies, id: number): Exits => {
+export const deleteRecord = (deps: Dependencies, id: number): Exits => {
   const data = deps.fileStorage.readFile('./data/records.json');
   const dataClone = structuredClone(data);
   const record = dataClone.records.find((record: Record) => record.id === id);

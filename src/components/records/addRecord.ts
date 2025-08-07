@@ -44,7 +44,7 @@ interface Dependencies {
 
 type Exits = { type: 'ok', message: string };
 
-const addRecord = (deps: Dependencies, body: Record): Exits => {
+export const addRecord = (deps: Dependencies, body: Record): Exits => {
   const data = deps.fileStorage.readFile('./data/records.json');
   const newRecords = [
     ...data.records,

@@ -2,10 +2,14 @@ import { IFileStorage } from './IFileStorage';
 import { Record } from '../src/types/Record';
 
 export class FileStorageFake implements IFileStorage {
-  #recordStorage = [];
+  #recordStorage: Record[] = [];
 
   constructor(data: Record[]) {
     this.#recordStorage = [...data];
+  }
+
+  get contents() {
+    return this.#recordStorage;
   }
 
   readFile() {

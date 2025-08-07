@@ -47,7 +47,7 @@ type Exits = { type: 'ok', value: Record } |
 { type: 'notFound', message: string };
 
 
-const getRecordById = (deps: Dependencies, id: number): Exits => {
+export const getRecordById = (deps: Dependencies, id: number): Exits => {
   const data = deps.fileStorage.readFile('./data/records.json');
   const record = data.records.find((record: Record) => record.id === id);
 
