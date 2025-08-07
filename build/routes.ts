@@ -4,15 +4,15 @@
 import type { TsoaRoute } from '@tsoa/runtime';
 import {  fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { UpdateRecordController } from './../src/controllers/records/updateRecord';
+import { UpdateRecordController } from './../src/components/records/updateRecord';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { GetRecordsController } from './../src/controllers/records/getRecords';
+import { GetRecordsController } from './../src/components/records/getRecords';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { GetRecordByIdController } from './../src/controllers/records/getRecordById';
+import { GetRecordByIdController } from './../src/components/records/getRecordById';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { DeleteRecordController } from './../src/controllers/records/deleteRecord';
+import { DeleteRecordController } from './../src/components/records/deleteRecord';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { AddRecordController } from './../src/controllers/records/addRecord';
+import { AddRecordController } from './../src/components/records/addRecord';
 import type { Request as ExRequest, Response as ExResponse, RequestHandler, Router } from 'express';
 
 
