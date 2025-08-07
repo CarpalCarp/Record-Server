@@ -1,5 +1,5 @@
+import { FileStorage } from '../../../storage/FileStorage';
 import type { Record } from '../../types/Record';
-import fs from 'fs';
 import { Get, Route, SuccessResponse, Response, Tags, Path, Controller } from 'tsoa';
 
 @Route('/app/records/{id}')
@@ -20,8 +20,10 @@ export class GetRecordByIdController extends Controller {
   public async getRecordByIdController(
     @Path() id: string
   ): Promise<Record[] | { message: string }> {
-    const file = fs.readFileSync('./data/records.json', 'utf-8');
-    const data = JSON.parse(file);
+    const deps = {
+      fileStorage: new FileStorage()
+    };
+    const data = deps.fileStorage.readFile('./data/records.json');
     const record = data.records.find((record: Record) => record.id === parseInt(id));
 
     if (record) {

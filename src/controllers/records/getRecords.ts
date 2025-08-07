@@ -1,6 +1,6 @@
-import fs from 'fs';
 import { Controller, Get, Route, SuccessResponse, Tags } from 'tsoa';
 import { Record } from '../../types/Record';
+import { FileStorage } from '../../../storage/FileStorage';
 
 @Route('/app/records')
 export class GetRecordsController extends Controller {
@@ -14,8 +14,10 @@ export class GetRecordsController extends Controller {
     'OK',
     'Returns all patient records')
   public async getRecordsController(): Promise<Record[]> {
-    const file = fs.readFileSync('./data/records.json', 'utf-8');
-    const data = JSON.parse(file);
+    const deps = {
+      fileStorage: new FileStorage()
+    };
+    const data = deps.fileStorage.readFile('./data/records.json');
     return data.records;
   }
 }

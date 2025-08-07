@@ -1,5 +1,5 @@
+import { FileStorage } from '../../../storage/FileStorage';
 import type { Record } from '../../types/Record';
-import fs from 'fs';
 import { Controller, Delete, Route, SuccessResponse, Tags, Response, Path } from 'tsoa';
 
 @Route('/app/records/:id')
@@ -21,8 +21,12 @@ export class DeleteRecordController extends Controller {
   public async deleteRecordController(
     @Path() id: number
   ): Promise<{ message: string }> {
-    const file = fs.readFileSync('./data/records.json', 'utf-8');
-    const dataClone = structuredClone(JSON.parse(file));
+    const deps = {
+      fileStorage: new FileStorage()
+    };
+
+    const data = deps.fileStorage.readFile('./data/records.json');
+    const dataClone = structuredClone(data);
     const record = dataClone.records.find((record: Record) => record.id === id);
     const index = dataClone.records.indexOf(record);
 
@@ -32,7 +36,7 @@ export class DeleteRecordController extends Controller {
     }
 
     dataClone.records.splice(index, 1);
-    fs.writeFileSync('./data/records.json', JSON.stringify(dataClone, null, 2));
+    deps.fileStorage.writeFile('./data/records.json', dataClone);
     this.setStatus(200);
     return { message: `Record with id: ${id} removed` };
   }

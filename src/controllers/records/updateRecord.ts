@@ -1,7 +1,7 @@
 import type { Record } from '../../types/Record';
-import fs from 'fs';
 import { Controller, Route, SuccessResponse, Tags, Response, Path, Body, Put } from 'tsoa';
 import { verifyRecord } from '../../util/validate';
+import { FileStorage } from '../../../storage/FileStorage';
 
 @Route('/app/records/{id}')
 export class UpdateRecordController extends Controller {
@@ -23,14 +23,17 @@ export class UpdateRecordController extends Controller {
     @Path() id: number,
     @Body() body: Record
   ): Promise<any> {
+    const deps = {
+      fileStorage: new FileStorage()
+    };
     const result = verifyRecord(body);
     if (result.type !== 'ok') {
       this.setStatus(400);
       return { message: result.message };
     }
 
-    const file = fs.readFileSync('./data/records.json', 'utf-8');
-    const dataClone = structuredClone(JSON.parse(file));
+    const data = deps.fileStorage.readFile('./data/records.json');
+    const dataClone = structuredClone(data);
     const record = dataClone.records.find((record: Record) => record.id === id);
     const index = dataClone.records.indexOf(record);
 
@@ -40,7 +43,7 @@ export class UpdateRecordController extends Controller {
     }
 
     dataClone.records[index] = body;
-    fs.writeFileSync('./data/records.json', JSON.stringify(dataClone, null, 2));
+    deps.fileStorage.writeFile('./data/records.json', dataClone);
     this.setStatus(200);
     return { message: `Record with id: ${id} updated` };
   }

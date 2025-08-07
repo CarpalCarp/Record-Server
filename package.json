@@ -11,10 +11,13 @@
   "dependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/mocha": "^10.0.10",
     "@types/morgan": "^1.9.10",
     "@types/node": "^24.1.0",
+    "chai": "^5.2.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "mocha": "^11.7.1",
     "morgan": "^1.10.1",
     "nodemon": "^3.1.10",
     "tsoa": "^6.6.0"
