@@ -16,6 +16,7 @@ app.use(cors({
 
 app.listen(3000);
 
+app.set('etag', false);
 app.use(express.json());
 // log request details to the console
 app.use(morgan('dev'));
