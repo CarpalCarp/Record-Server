@@ -1,4 +1,4 @@
-import { Record } from '../src/types/Record';
+import { Record } from '../types/Record';
 
 export interface IFileStorage {
   readFile(filePath: string): { records: Record[] }

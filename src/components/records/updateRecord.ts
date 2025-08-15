@@ -1,7 +1,7 @@
 import type { Record } from '../../types/Record';
 import { Controller, Route, SuccessResponse, Tags, Response, Path, Body, Put } from 'tsoa';
-import { FileStorage } from '../../../storage/FileStorage';
-import { IFileStorage } from '../../../storage/IFileStorage';
+import { FileStorage } from '../../storage/FileStorage';
+import { IFileStorage } from '../../storage/IFileStorage';
 import { UnreachableCaseError } from '../../shared/UnreachableCaseError';
 
 @Route('/app/records/{id}')

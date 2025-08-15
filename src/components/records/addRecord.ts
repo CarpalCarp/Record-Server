@@ -1,8 +1,8 @@
 // import { verifyRecord } from '../../util/validate.ts';
 import { Body, Controller, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
 import { Record } from '../../types/Record';
-import { FileStorage } from '../../../storage/FileStorage.ts';
-import { IFileStorage } from '../../../storage/IFileStorage.ts';
+import { FileStorage } from '../../storage/FileStorage.ts';
+import { IFileStorage } from '../../storage/IFileStorage.ts';
 import { UnreachableCaseError } from '../../shared/UnreachableCaseError.ts';
 
 @Route('/app/records')

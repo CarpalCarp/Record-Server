@@ -1,8 +1,7 @@
 import { expect } from 'chai';
-import * as assert from 'assert';
 import { FileStorageFake } from '../../storage/FileStorageFake';
-import type { Record } from '../../src/types/Record';
-import { getRecordById } from '../../src/components/records/getRecordById';
+import type { Record } from '../../types/Record';
+import { deleteRecord } from '../../components/records/deleteRecord';
 
 const defaultRecord = {
   'id': 1,
@@ -23,31 +22,29 @@ const defaultRecord = {
   }
 };
 
-describe('Tests for getRecordById.ts', () => {
-
+describe('Tests for deleteRecord.ts', () => {
   const initialize = (records: Record[]) => {
     return {
       fileStorage: new FileStorageFake(records)
-    };
-  }
+    }
+  };
 
-  it('should return a record by its id', () => {
+  it('should remove a patient record', () => {
     const deps = initialize([
       defaultRecord
     ]);
 
-    const result = getRecordById(deps, 1);
+    const result = deleteRecord(deps, 1);
     expect(result.type).to.equal('ok');
-    assert.strictEqual(result.type, 'ok');
-    expect(result.value).to.equal(defaultRecord);
+    expect(deps.fileStorage.contents.includes(defaultRecord)).to.be.false;
   });
 
-  it('should return not found if given id which matches no record', () => {
+  it('should return not found if patient record does not exist', () => {
     const deps = initialize([
       defaultRecord
     ]);
 
-    const result = getRecordById(deps, 123);
+    const result = deleteRecord(deps, 123); // 123 does not exist
     expect(result.type).to.equal('notFound');
   });
 });

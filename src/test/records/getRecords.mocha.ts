@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { FileStorageFake } from '../../storage/FileStorageFake';
-import type { Record } from '../../src/types/Record';
-import { getRecords } from '../../src/components/records/getRecords';
+import type { Record } from '../../types/Record';
+import { getRecords } from '../../components/records/getRecords';
 
 const defaultRecord = {
   'id': 1,

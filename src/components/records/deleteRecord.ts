@@ -1,5 +1,5 @@
-import { FileStorage } from '../../../storage/FileStorage';
-import { IFileStorage } from '../../../storage/IFileStorage';
+import { FileStorage } from '../../storage/FileStorage';
+import { IFileStorage } from '../../storage/IFileStorage';
 import { UnreachableCaseError } from '../../shared/UnreachableCaseError';
 import type { Record } from '../../types/Record';
 import { Controller, Delete, Route, SuccessResponse, Tags, Response, Path } from 'tsoa';

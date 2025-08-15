@@ -1,7 +1,7 @@
 import { Controller, Get, Route, SuccessResponse, Tags } from 'tsoa';
 import { Record } from '../../types/Record';
-import { FileStorage } from '../../../storage/FileStorage';
-import { IFileStorage } from '../../../storage/IFileStorage';
+import { FileStorage } from '../../storage/FileStorage';
+import { IFileStorage } from '../../storage/IFileStorage';
 
 @Route('/app/records')
 export class GetRecordsController extends Controller {

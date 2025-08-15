@@ -1,5 +1,5 @@
 import { IFileStorage } from './IFileStorage';
-import { Record } from '../src/types/Record';
+import { Record } from '../types/Record';
 
 export class FileStorageFake implements IFileStorage {
   #recordStorage: Record[] = [];
