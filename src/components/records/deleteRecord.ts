@@ -1,6 +1,6 @@
 import { RecordStorage } from '../../storage/RecordStorage';
 import { IRecordStorage } from '../../storage/IRecordStorage.ts';
-import { UnreachableCaseError } from '../../shared/UnreachableCaseError';
+import { UnreachableCaseError } from '../../util/UnreachableCaseError.ts';
 import { Controller, Delete, Route, SuccessResponse, Tags, Response, Path } from 'tsoa';
 
 @Route('/app/records/:id')

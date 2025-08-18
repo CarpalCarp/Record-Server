@@ -2,7 +2,7 @@ import { Body, Controller, Post, Response, Route, SuccessResponse, Tags } from '
 import { Record } from '../../types/Record';
 import { RecordStorage } from '../../storage/RecordStorage.ts';
 import { IRecordStorage } from '../../storage/IRecordStorage.ts';
-import { UnreachableCaseError } from '../../shared/UnreachableCaseError.ts';
+import { UnreachableCaseError } from '../../util/UnreachableCaseError.ts';
 
 @Route('/app/records')
 export class AddRecordController extends Controller {

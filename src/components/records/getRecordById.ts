@@ -1,6 +1,6 @@
 import { RecordStorage } from '../../storage/RecordStorage';
 import { IRecordStorage } from '../../storage/IRecordStorage.ts';
-import { UnreachableCaseError } from '../../shared/UnreachableCaseError';
+import { UnreachableCaseError } from '../../util/UnreachableCaseError.ts';
 import type { Record } from '../../types/Record';
 import { Get, Route, SuccessResponse, Response, Tags, Path, Controller } from 'tsoa';
 

@@ -20,6 +20,16 @@ import type { Request as ExRequest, Response as ExResponse, RequestHandler, Rout
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
+    "Pick_Record.Exclude_keyofRecord.id__": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"firstName":{"dataType":"string","required":true},"lastName":{"dataType":"string","required":true},"age":{"dataType":"double","required":true},"description":{"dataType":"string","required":true},"dateOfBirth":{"dataType":"string","required":true},"email":{"dataType":"string","required":true},"phone":{"dataType":"string","required":true},"street":{"dataType":"string","required":true},"city":{"dataType":"string","required":true},"state":{"dataType":"string","required":true},"zip":{"dataType":"double","required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Omit_Record.id_": {
+        "dataType": "refAlias",
+        "type": {"ref":"Pick_Record.Exclude_keyofRecord.id__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Record": {
         "dataType": "refObject",
         "properties": {
@@ -58,7 +68,7 @@ export function RegisterRoutes(app: Router) {
     
         const argsUpdateRecordController_updateRecordController: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"string"},
-                body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"record":{"ref":"Record","required":true}}},
+                body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"record":{"ref":"Omit_Record.id_","required":true}}},
         };
         app.put('/app/records/:id',
             ...(fetchMiddlewares<RequestHandler>(UpdateRecordController)),

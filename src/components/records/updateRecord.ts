@@ -2,7 +2,7 @@ import type { Record } from '../../types/Record';
 import { Controller, Route, SuccessResponse, Tags, Response, Path, Body, Put } from 'tsoa';
 import { RecordStorage } from '../../storage/RecordStorage';
 import { IRecordStorage } from '../../storage/IRecordStorage.ts';
-import { UnreachableCaseError } from '../../shared/UnreachableCaseError';
+import { UnreachableCaseError } from '../../util/UnreachableCaseError.ts';
 
 @Route('/app/records/{id}')
 export class UpdateRecordController extends Controller {

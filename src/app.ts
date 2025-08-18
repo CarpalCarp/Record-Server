@@ -21,7 +21,6 @@ app.use(express.json());
 // log request details to the console
 app.use(morgan('dev'));
 
-
 RegisterRoutes(app);
 
 app.use(function notFoundHandler(_req, res: ExResponse) {
