@@ -1,14 +1,3 @@
-export interface RecordDetails {
-  email: string
-  phone: string
-  address: {
-    street: string
-    city: string
-    state: string
-    zip: number
-  }
-}
-
 export interface Record {
   id: number
   firstName: string
@@ -16,5 +5,10 @@ export interface Record {
   age: number
   description: string
   dateOfBirth: string
-  details: RecordDetails
+  email: string
+  phone: string
+  street: string
+  city: string
+  state: string
+  zip: number
 }

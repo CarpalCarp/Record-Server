@@ -5,17 +5,22 @@
   "main": "app.ts",
   "scripts": {
     "start": "npx tsoa routes & ts-node ./src/app.ts",
-    "test": "mocha ./src/test/**/*.mocha.ts --require ts-node/register"
+    "test": "mocha ./src/test/**/*.mocha.ts --require ts-node/register",
+    "sqlite-setup-table": "ts-node ./src/scripts/setupSqliteTable.ts",
+    "sqlite-remove-table": "ts-node ./src/scripts/removeSqliteTable.ts",
+    "sqlite-add-records": "ts-node ./src/scripts/addRecords.ts"
   },
   "author": "Matias Galante",
   "license": "MIT",
   "dependencies": {
+    "@types/better-sqlite3": "^7.6.13",
     "@types/chai": "^5.2.2",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/mocha": "^10.0.10",
     "@types/morgan": "^1.9.10",
     "@types/node": "^24.1.0",
+    "better-sqlite3": "^12.2.0",
     "chai": "^5.2.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",

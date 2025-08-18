@@ -1,8 +1,7 @@
-// import { verifyRecord } from '../../util/validate.ts';
 import { Body, Controller, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
 import { Record } from '../../types/Record';
-import { FileStorage } from '../../storage/FileStorage.ts';
-import { IFileStorage } from '../../storage/IFileStorage.ts';
+import { RecordStorage } from '../../storage/RecordStorage.ts';
+import { IRecordStorage } from '../../storage/IRecordStorage.ts';
 import { UnreachableCaseError } from '../../shared/UnreachableCaseError.ts';
 
 @Route('/app/records')
@@ -22,13 +21,13 @@ export class AddRecordController extends Controller {
     'Invalid record submitted'
   )
   public async addRecordController(
-    @Body() body: Record
+    @Body() body: { record: Record }
   ): Promise<{ message: string }> {
     const deps = {
-      fileStorage: new FileStorage()
+      recordStorage: new RecordStorage()
     };
 
-    const result = addRecord(deps, body);
+    const result = addRecord(deps, body.record);
     if (result.type === 'ok') {
       this.setStatus(200);
       return { message: result.message };
@@ -39,19 +38,13 @@ export class AddRecordController extends Controller {
 }
 
 interface Dependencies {
-  fileStorage: IFileStorage
+  recordStorage: IRecordStorage
 }
 
 type Exits = { type: 'ok', message: string };
 
-export const addRecord = (deps: Dependencies, body: Record): Exits => {
-  const data = deps.fileStorage.readFile('./data/records.json');
-  const newRecords = [
-    ...data.records,
-    body
-  ];
+export const addRecord = (deps: Dependencies, record: Record): Exits => {
+  deps.recordStorage.addRecord(record);
 
-  deps.fileStorage.writeFile('./data/records.json', { records: newRecords });
-
-  return { type: 'ok', message: `Record with id: ${body.id} added` };
+  return { type: 'ok', message: `Record with id: ${record.id} added` };
 }

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import * as assert from 'assert';
-import { FileStorageFake } from '../../storage/FileStorageFake';
+import { RecordStorageFake } from '../../storage/RecordStorageFake';
 import type { Record } from '../../types/Record';
 import { getRecordById } from '../../components/records/getRecordById';
 
@@ -27,7 +27,7 @@ describe('Tests for getRecordById.ts', () => {
 
   const initialize = (records: Record[]) => {
     return {
-      fileStorage: new FileStorageFake(records)
+      fileStorage: new RecordStorageFake(records)
     };
   }
 

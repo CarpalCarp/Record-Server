@@ -1,7 +1,7 @@
 import { Controller, Get, Route, SuccessResponse, Tags } from 'tsoa';
 import { Record } from '../../types/Record';
-import { FileStorage } from '../../storage/FileStorage';
-import { IFileStorage } from '../../storage/IFileStorage';
+import { RecordStorage } from '../../storage/RecordStorage';
+import { IRecordStorage } from '../../storage/IRecordStorage.ts';
 
 @Route('/app/records')
 export class GetRecordsController extends Controller {
@@ -16,7 +16,7 @@ export class GetRecordsController extends Controller {
     'Returns all patient records')
   public async getRecordsController(): Promise<Record[]> {
     const deps = {
-      fileStorage: new FileStorage()
+      recordStorage: new RecordStorage()
     };
     const result = getRecords(deps);
 
@@ -26,12 +26,12 @@ export class GetRecordsController extends Controller {
 }
 
 interface Dependencies {
-  fileStorage: IFileStorage
+  recordStorage: IRecordStorage
 }
 
 type Exits = { type: 'ok', value: Record[] };
 
 export const getRecords = (deps: Dependencies): Exits => {
-  const data = deps.fileStorage.readFile('./data/records.json');
-  return { type: 'ok', value: data.records };
+  const records = deps.recordStorage.getRecords();
+  return { type: 'ok', value: records };
 }

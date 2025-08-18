@@ -20,16 +20,6 @@ import type { Request as ExRequest, Response as ExResponse, RequestHandler, Rout
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-    "RecordDetails": {
-        "dataType": "refObject",
-        "properties": {
-            "email": {"dataType":"string","required":true},
-            "phone": {"dataType":"string","required":true},
-            "address": {"dataType":"nestedObjectLiteral","nestedProperties":{"zip":{"dataType":"double","required":true},"state":{"dataType":"string","required":true},"city":{"dataType":"string","required":true},"street":{"dataType":"string","required":true}},"required":true},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Record": {
         "dataType": "refObject",
         "properties": {
@@ -39,7 +29,12 @@ const models: TsoaRoute.Models = {
             "age": {"dataType":"double","required":true},
             "description": {"dataType":"string","required":true},
             "dateOfBirth": {"dataType":"string","required":true},
-            "details": {"ref":"RecordDetails","required":true},
+            "email": {"dataType":"string","required":true},
+            "phone": {"dataType":"string","required":true},
+            "street": {"dataType":"string","required":true},
+            "city": {"dataType":"string","required":true},
+            "state": {"dataType":"string","required":true},
+            "zip": {"dataType":"double","required":true},
         },
         "additionalProperties": false,
     },
@@ -62,8 +57,8 @@ export function RegisterRoutes(app: Router) {
 
     
         const argsUpdateRecordController_updateRecordController: Record<string, TsoaRoute.ParameterSchema> = {
-                id: {"in":"path","name":"id","required":true,"dataType":"double"},
-                body: {"in":"body","name":"body","required":true,"ref":"Record"},
+                id: {"in":"path","name":"id","required":true,"dataType":"string"},
+                body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"record":{"ref":"Record","required":true}}},
         };
         app.put('/app/records/:id',
             ...(fetchMiddlewares<RequestHandler>(UpdateRecordController)),
@@ -122,7 +117,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsGetRecordByIdController_getRecordByIdController: Record<string, TsoaRoute.ParameterSchema> = {
-                id: {"in":"path","name":"id","required":true,"dataType":"double"},
+                id: {"in":"path","name":"id","required":true,"dataType":"string"},
         };
         app.get('/app/records/:id',
             ...(fetchMiddlewares<RequestHandler>(GetRecordByIdController)),
@@ -152,7 +147,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsDeleteRecordController_deleteRecordController: Record<string, TsoaRoute.ParameterSchema> = {
-                id: {"in":"path","name":"id","required":true,"dataType":"double"},
+                id: {"in":"path","name":"id","required":true,"dataType":"string"},
         };
         app.delete('/app/records/:id',
             ...(fetchMiddlewares<RequestHandler>(DeleteRecordController)),
@@ -182,7 +177,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsAddRecordController_addRecordController: Record<string, TsoaRoute.ParameterSchema> = {
-                body: {"in":"body","name":"body","required":true,"ref":"Record"},
+                body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"record":{"ref":"Record","required":true}}},
         };
         app.post('/app/records',
             ...(fetchMiddlewares<RequestHandler>(AddRecordController)),

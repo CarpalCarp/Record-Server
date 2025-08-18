@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { FileStorageFake } from '../../storage/FileStorageFake';
+import { RecordStorageFake } from '../../storage/RecordStorageFake';
 import type { Record } from '../../types/Record';
 import { deleteRecord } from '../../components/records/deleteRecord';
 
@@ -25,7 +25,7 @@ const defaultRecord = {
 describe('Tests for deleteRecord.ts', () => {
   const initialize = (records: Record[]) => {
     return {
-      fileStorage: new FileStorageFake(records)
+      fileStorage: new RecordStorageFake(records)
     }
   };
 
