@@ -4,33 +4,41 @@ import type { Record } from '../types/Record';
 const db = new Database('app.db');
 
 export class RecordStorage implements IRecordStorage {
-  getRecords(): Record[] {
+  getRecords(): { type: 'ok', value: Record[] } {
     const query = `
       SELECT * FROM records;
     `;
     try {
-      return db.prepare(query).all() as Record[];
+      return { type: 'ok', value: db.prepare(query).all() as Record[] };
     } catch (error) {
       console.error('Error adding record: ', error);
-      return [];
+      return { type: 'ok', value: [] };
     }
   }
 
-  getRecordById(id: string): Record {
+  getRecordById(id: string): { type: 'ok', value: Record } | { type: 'notFound', message: string } {
     const query = `
       SELECT * FROM records
       WHERE id = ?;
     `;
 
     try {
-      return db.prepare(query).get(id) as Record;
+      const record = db.prepare(query).get(id) as Record;
+      if (record) {
+        return { type: 'ok', value: record };
+      } else {
+        return { type: 'notFound', message: 'Record not found' };
+      }
     } catch (error) {
-      console.error('Error adding record: ', error);
-      return null;
+      throw new Error(`Error retrieving record with id ${id}: ${error.message}`);
     }
   }
 
-  updateRecord(id: string, record: Omit<Record, 'id'>): void {
+  updateRecord(id: string, record: Omit<Record, 'id'>): { type: 'ok', message: string } | { type: 'notFound', message: string } {
+    const result = this.getRecordById(id);
+    if (result.type === 'notFound') {
+      return result;
+    }
     const query = `
       UPDATE records
       SET firstName = ?, lastName = ?, age = ?, description = ?, dateOfBirth = ?, email = ?, phone = ?, street = ?, city = ?, state = ?, zip = ?
@@ -52,12 +60,18 @@ export class RecordStorage implements IRecordStorage {
         record.zip,
         id
       );
+      return { type: 'ok', message: `Record with id: ${id} updated` };
     } catch (error) {
-      console.error('Error adding record: ', error);
+      throw new Error(`Error updating record with id ${id}: ${error.message}`);
     }
   }
 
-  deleteRecord(id: string): void {
+  deleteRecord(id: string): { type: 'ok', message: string } | { type: 'notFound', message: string } {
+    const result = this.getRecordById(id);
+    if (result.type === 'notFound') {
+      return result;
+    }
+
     const query = `
       DELETE FROM records WHERE id = ?;
     `;
@@ -65,12 +79,14 @@ export class RecordStorage implements IRecordStorage {
 
     try {
       deleteRecord.run(id);
+      return { type: 'ok', message: `Record with id: ${id} removed` };
+
     } catch (error) {
-      console.error('Error adding record: ', error);
+      throw new Error(`Error deleting record with id ${id}: ${error.message}`);
     }
   }
 
-  addRecord(record: Record): void {
+  addRecord(record: Record): { type: 'ok', message: string } {
     const query = `
       INSERT INTO records (id, firstName, lastName, age, description, dateOfBirth, email, phone, street, city, state, zip)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
@@ -90,8 +106,9 @@ export class RecordStorage implements IRecordStorage {
         record.city,
         record.state,
         record.zip);
+      return { type: 'ok', message: `Record with id: ${record.id} added` };
     } catch (error) {
-      console.error('Error adding record: ', error);
+      throw new Error(`Error adding record with id ${record.id}: ${error.message}`);
     }
   }
 }

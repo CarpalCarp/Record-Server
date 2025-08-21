@@ -48,11 +48,5 @@ type Exits = { type: 'ok', value: Record } |
 
 
 export const getRecordById = (deps: Dependencies, id: string): Exits => {
-  const record = deps.recordStorage.getRecordById(id);
-
-  if (record) {
-    return { type: 'ok', value: record };
-  } else {
-    return { type: 'notFound', message: 'Record not found' };
-  }
+  return deps.recordStorage.getRecordById(id);
 }

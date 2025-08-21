@@ -32,6 +32,5 @@ interface Dependencies {
 type Exits = { type: 'ok', value: Record[] };
 
 export const getRecords = (deps: Dependencies): Exits => {
-  const records = deps.recordStorage.getRecords();
-  return { type: 'ok', value: records };
+  return deps.recordStorage.getRecords();
 }

@@ -11,23 +11,19 @@ const defaultRecord = {
   'age': 30,
   'description': 'This is the first record.',
   'dateOfBirth': '04/15/1994',
-  'details': {
-    'email': 'johnDoe@gmail.com',
-    'phone': '123-456-7890',
-    'address': {
-      'street': '123 Main St',
-      'city': 'Anytown',
-      'state': 'CA',
-      'zip': 12345
-    }
-  }
+  'email': 'johnDoe@gmail.com',
+  'phone': '123-456-7890',
+  'street': '123 Main St',
+  'city': 'Anytown',
+  'state': 'CA',
+  'zip': 12345
 };
 
 describe('Tests for getRecordById.ts', () => {
 
   const initialize = (records: Record[]) => {
     return {
-      fileStorage: new RecordStorageFake(records)
+      recordStorage: new RecordStorageFake(records)
     };
   }
 
@@ -36,7 +32,7 @@ describe('Tests for getRecordById.ts', () => {
       defaultRecord
     ]);
 
-    const result = getRecordById(deps, 1);
+    const result = getRecordById(deps, '1');
     expect(result.type).to.equal('ok');
     assert.strictEqual(result.type, 'ok');
     expect(result.value).to.equal(defaultRecord);
@@ -47,7 +43,7 @@ describe('Tests for getRecordById.ts', () => {
       defaultRecord
     ]);
 
-    const result = getRecordById(deps, 123);
+    const result = getRecordById(deps, '123');
     expect(result.type).to.equal('notFound');
   });
 });

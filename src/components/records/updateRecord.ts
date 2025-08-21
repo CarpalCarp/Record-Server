@@ -50,6 +50,5 @@ type Exits = { type: 'ok', message: string } |
 { type: 'notFound', message: string };
 
 export const updateRecord = (deps: Dependencies, id: string, record: Omit<Record, 'id'>): Exits => {
-  deps.recordStorage.updateRecord(id, record);
-  return { type: 'ok', message: `Record with id: ${id} updated` };
+  return deps.recordStorage.updateRecord(id, record);
 }

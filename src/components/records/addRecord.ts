@@ -44,7 +44,5 @@ interface Dependencies {
 type Exits = { type: 'ok', message: string };
 
 export const addRecord = (deps: Dependencies, record: Record): Exits => {
-  deps.recordStorage.addRecord(record);
-
-  return { type: 'ok', message: `Record with id: ${record.id} added` };
+  return deps.recordStorage.addRecord(record);
 }

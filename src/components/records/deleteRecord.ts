@@ -48,6 +48,5 @@ type Exits = { type: 'ok', message: string } |
 { type: 'notFound', message: string };
 
 export const deleteRecord = (deps: Dependencies, id: string): Exits => {
-  deps.recordStorage.deleteRecord(id);
-  return { type: 'ok', message: `Record with id: ${id} removed` };
+  return deps.recordStorage.deleteRecord(id);
 }
