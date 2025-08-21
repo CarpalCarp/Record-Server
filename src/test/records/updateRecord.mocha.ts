@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { updateRecord } from '../../components/records/updateRecord';
+import { updateRecord } from '../../controllers/records/updateRecord';
 import { RecordStorageFake } from '../../storage/RecordStorageFake';
 import type { Record } from '../../types/Record';
 

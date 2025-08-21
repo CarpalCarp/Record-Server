@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import * as assert from 'assert';
 import { RecordStorageFake } from '../../storage/RecordStorageFake';
 import type { Record } from '../../types/Record';
-import { getRecordById } from '../../components/records/getRecordById';
+import { getRecordById } from '../../controllers/records/getRecordById';
 
 const defaultRecord = {
   'id': 1,

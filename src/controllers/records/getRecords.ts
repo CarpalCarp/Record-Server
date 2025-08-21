@@ -1,6 +1,6 @@
 import { Controller, Get, Route, SuccessResponse, Tags } from 'tsoa';
 import { Record } from '../../types/Record';
-import { RecordStorage } from '../../storage/RecordStorage';
+import { RecordStorage } from '../../storage/RecordStorage.ts';
 import { IRecordStorage } from '../../storage/IRecordStorage.ts';
 
 @Route('/app/records')

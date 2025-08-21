@@ -1,4 +1,4 @@
-import { RecordStorage } from '../../storage/RecordStorage';
+import { RecordStorage } from '../../storage/RecordStorage.ts';
 import { IRecordStorage } from '../../storage/IRecordStorage.ts';
 import { UnreachableCaseError } from '../../util/UnreachableCaseError.ts';
 import type { Record } from '../../types/Record';

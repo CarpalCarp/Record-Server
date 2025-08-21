@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { RecordStorageFake } from '../../storage/RecordStorageFake';
 import type { Record } from '../../types/Record';
-import { addRecord } from '../../components/records/addRecord';
+import { addRecord } from '../../controllers/records/addRecord';
 
 describe('Tests for updateRecord.ts', () => {
   const initialize = (records: Record[]) => {
