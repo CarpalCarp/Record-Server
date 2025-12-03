@@ -7,6 +7,7 @@ import express, {
 } from "express";
 import { RegisterRoutes } from '../build/routes.ts';
 import { ValidateError } from 'tsoa';
+import path from 'path';
 
 const app = express();
 
@@ -17,11 +18,12 @@ app.use(cors({
 app.listen(3000);
 
 app.set('etag', false);
-app.use(express.json());
-// log request details to the console
-app.use(morgan('dev'));
+app.use(express.json()); // Enables JSON body parsing
+app.use(morgan('dev')); // Log request details to the console
+// Static file
+app.use(express.static(path.join(__dirname, 'ui-files')));
 
-RegisterRoutes(app);
+RegisterRoutes(app); // Used by tsoa
 
 app.use(function notFoundHandler(_req, res: ExResponse) {
   res.status(404).send({
