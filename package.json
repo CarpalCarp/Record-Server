@@ -4,6 +4,7 @@
   "description": "A server to manage records",
   "main": "app.ts",
   "scripts": {
+    "tsoa:gen": "tsoa routes && tsoa spec",
     "start": "npx tsoa routes & ts-node ./src/app.ts",
     "test": "mocha ./src/test/**/*.mocha.ts --require ts-node/register",
     "sqlite-setup-table": "ts-node ./src/scripts/setupSqliteTable.ts",
@@ -27,9 +28,13 @@
     "mocha": "^11.7.1",
     "morgan": "^1.10.1",
     "nodemon": "^3.1.10",
+    "socket.io": "^4.8.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "tsoa": "^6.6.0"
   },
   "devDependencies": {
+    "@types/socket.io": "^3.0.1",
     "ts-node": "^10.9.2"
   }
 }
