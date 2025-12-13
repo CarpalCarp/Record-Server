@@ -8,6 +8,8 @@ import express, {
 import { RegisterRoutes } from '../build/routes.ts';
 import { ValidateError } from 'tsoa';
 import path from 'path';
+import { Server } from 'socket.io';
+import http from 'http';
 
 const app = express();
 
@@ -15,13 +17,30 @@ app.use(cors({
   origin: ['http://localhost:4200']
 }));
 
-app.listen(3000);
+// create a single HTTP server and attach socket.io to it
+const server = http.createServer(app);
 
 app.set('etag', false);
 app.use(express.json()); // Enables JSON body parsing
 app.use(morgan('dev')); // Log request details to the console
-// Static file
+
+// Static files
 app.use(express.static(path.join(__dirname, 'ui-files')));
+
+const io = new Server(server, {
+  cors: {
+    origin: ['http://localhost:4200'],
+  },
+});
+
+io.on('connection', (socket) => {
+  console.log('hello socket.io client connected', socket.id);
+});
+
+RegisterRoutes(app); // Used by tsoa
+
+// start the HTTP server (so socket.io and express share the same server)
+server.listen(3000);
 
 RegisterRoutes(app); // Used by tsoa
 
