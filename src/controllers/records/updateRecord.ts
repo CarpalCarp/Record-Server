@@ -4,7 +4,7 @@ import { RecordStorage } from '../../storage/RecordStorage.ts';
 import { IRecordStorage } from '../../storage/IRecordStorage.ts';
 import { UnreachableCaseError } from '../../util/UnreachableCaseError.ts';
 
-@Route('/app/records/{id}')
+@Route('/records/{id}')
 export class UpdateRecordController extends Controller {
   /**
   * Update a patient record

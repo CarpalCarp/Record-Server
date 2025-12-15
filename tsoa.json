@@ -9,6 +9,7 @@
     "specVersion": 3
   },
   "routes": {
+    "basePath": "/api",
     "routesDir": "build"
   }
 }

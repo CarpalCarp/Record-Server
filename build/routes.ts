@@ -70,7 +70,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"string"},
                 body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"record":{"ref":"Omit_Record.id_","required":true}}},
         };
-        app.put('/app/records/:id',
+        app.put('/api/records/:id',
             ...(fetchMiddlewares<RequestHandler>(UpdateRecordController)),
             ...(fetchMiddlewares<RequestHandler>(UpdateRecordController.prototype.updateRecordController)),
 
@@ -99,7 +99,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsGetRecordsController_getRecordsController: Record<string, TsoaRoute.ParameterSchema> = {
         };
-        app.get('/app/records',
+        app.get('/api/records',
             ...(fetchMiddlewares<RequestHandler>(GetRecordsController)),
             ...(fetchMiddlewares<RequestHandler>(GetRecordsController.prototype.getRecordsController)),
 
@@ -129,7 +129,7 @@ export function RegisterRoutes(app: Router) {
         const argsGetRecordByIdController_getRecordByIdController: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"string"},
         };
-        app.get('/app/records/:id',
+        app.get('/api/records/:id',
             ...(fetchMiddlewares<RequestHandler>(GetRecordByIdController)),
             ...(fetchMiddlewares<RequestHandler>(GetRecordByIdController.prototype.getRecordByIdController)),
 
@@ -159,7 +159,7 @@ export function RegisterRoutes(app: Router) {
         const argsDeleteRecordController_deleteRecordController: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"string"},
         };
-        app.delete('/app/records/:id',
+        app.delete('/api/records/:id',
             ...(fetchMiddlewares<RequestHandler>(DeleteRecordController)),
             ...(fetchMiddlewares<RequestHandler>(DeleteRecordController.prototype.deleteRecordController)),
 
@@ -189,7 +189,7 @@ export function RegisterRoutes(app: Router) {
         const argsAddRecordController_addRecordController: Record<string, TsoaRoute.ParameterSchema> = {
                 body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"record":{"ref":"Record","required":true}}},
         };
-        app.post('/app/records',
+        app.post('/api/records',
             ...(fetchMiddlewares<RequestHandler>(AddRecordController)),
             ...(fetchMiddlewares<RequestHandler>(AddRecordController.prototype.addRecordController)),
 

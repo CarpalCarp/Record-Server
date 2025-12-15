@@ -13,8 +13,34 @@ import http from 'http';
 import swaggerUi from 'swagger-ui-express';
 import swaggerData from '../build/swagger.json';
 
+const BACKEND_PORT = 3000;
+const FRONTEND_PORT = 4200;
 const app = express();
-const PORT = 3000;
+const server = http.createServer(app);
+
+const corsOptions = {
+  origin: [`http://localhost:${FRONTEND_PORT}`, 'http://localhost'], // http://localhost:PORT is for local front end without nginx
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+  credentials: true // Enable passing credentials (cookies, auth headers)
+};
+
+const io = new Server(server, {
+  cors: corsOptions
+});
+
+io.on('connection', (socket) => {
+  console.log('hello socket.io client connected', socket.id);
+});
+
+app.use(cors(corsOptions));
+
+app.set('etag', false);
+app.use(express.json()); // Enables JSON body parsing
+app.use(morgan('dev')); // Log request details to the console
+
+// Static files
+app.use(express.static(path.join(__dirname, 'ui-files')));
 
 app.use(
   '/docs',
@@ -26,42 +52,13 @@ app.use(
   }
 );
 
-// Register tsoa generated routes
-RegisterRoutes(app);
-
-app.use(cors({
-  origin: ['http://localhost:4200']
-}));
-
-// create a single HTTP server and attach socket.io to it
-const server = http.createServer(app);
-
-app.set('etag', false);
-app.use(express.json()); // Enables JSON body parsing
-app.use(morgan('dev')); // Log request details to the console
-
-// Static files
-app.use(express.static(path.join(__dirname, 'ui-files')));
-
-const io = new Server(server, {
-  cors: {
-    origin: ['http://localhost:4200'],
-  },
-});
-
-io.on('connection', (socket) => {
-  console.log('hello socket.io client connected', socket.id);
-});
-
 RegisterRoutes(app); // Used by tsoa
 
 // start the HTTP server (so socket.io and express share the same server)
-server.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-  console.log(`Swagger docs available at http://localhost:${PORT}/docs`);
+server.listen(BACKEND_PORT, () => {
+  console.log(`Server is running on http://localhost:${BACKEND_PORT}`);
+  console.log(`Swagger docs available at http://localhost:${BACKEND_PORT}/docs`);
 });
-
-RegisterRoutes(app); // Used by tsoa
 
 app.use(function notFoundHandler(_req, res: Response) {
   res.status(404).send({

@@ -3,7 +3,7 @@ import { IRecordStorage } from '../../storage/IRecordStorage.ts';
 import { UnreachableCaseError } from '../../util/UnreachableCaseError.ts';
 import { Controller, Delete, Route, SuccessResponse, Tags, Response, Path } from 'tsoa';
 
-@Route('/app/records/:id')
+@Route('/records/:id')
 export class DeleteRecordController extends Controller {
   /**
    * Removed a patient record

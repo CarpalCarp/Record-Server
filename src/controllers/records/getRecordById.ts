@@ -4,7 +4,7 @@ import { UnreachableCaseError } from '../../util/UnreachableCaseError.ts';
 import type { Record } from '../../types/Record';
 import { Get, Route, SuccessResponse, Response, Tags, Path, Controller } from 'tsoa';
 
-@Route('/app/records/{id}')
+@Route('/records/{id}')
 export class GetRecordByIdController extends Controller {
   /**
    * Get a patient record by ID

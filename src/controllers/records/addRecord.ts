@@ -4,10 +4,11 @@ import { RecordStorage } from '../../storage/RecordStorage.ts';
 import { IRecordStorage } from '../../storage/IRecordStorage.ts';
 import { UnreachableCaseError } from '../../util/UnreachableCaseError.ts';
 
-@Route('/app/records')
+@Route('/records')
 export class AddRecordController extends Controller {
   /**
    * Add a patient record
+   * @param body The patient record to add
    */
   @Post()
   @Tags('Records')
@@ -22,15 +23,17 @@ export class AddRecordController extends Controller {
   )
   public async addRecordController(
     @Body() body: { record: Record }
-  ): Promise<{ message: string }> {
+  ): Promise<{ message: Record | string }> {
     const deps = {
       recordStorage: new RecordStorage()
     };
-
-    const result = addRecord(deps, body.record);
+    console.log('deps: ', deps);
+    console.log('body: ', body);
+    const result = { type: 'ok', message: body } // addRecord(deps, body.record);
     if (result.type === 'ok') {
       this.setStatus(200);
-      return { message: result.message };
+      // return { message: result.message };
+      return { message: '' };
     } else {
       throw new UnreachableCaseError();
     }

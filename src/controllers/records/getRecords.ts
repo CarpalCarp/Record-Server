@@ -3,7 +3,7 @@ import { Record } from '../../types/Record';
 import { RecordStorage } from '../../storage/RecordStorage.ts';
 import { IRecordStorage } from '../../storage/IRecordStorage.ts';
 
-@Route('/app/records')
+@Route('/records')
 export class GetRecordsController extends Controller {
   /**
    * Get all patient records

@@ -139,7 +139,7 @@
 		}
 	},
 	"paths": {
-		"/app/records/{id}": {
+		"/api/records/{id}": {
 			"put": {
 				"operationId": "UpdateRecordController",
 				"responses": {
@@ -292,7 +292,7 @@
 				]
 			}
 		},
-		"/app/records": {
+		"/api/records": {
 			"get": {
 				"operationId": "GetRecordsController",
 				"responses": {
@@ -327,7 +327,14 @@
 								"schema": {
 									"properties": {
 										"message": {
-											"type": "string"
+											"anyOf": [
+												{
+													"$ref": "#/components/schemas/Record"
+												},
+												{
+													"type": "string"
+												}
+											]
 										}
 									},
 									"required": [
@@ -349,6 +356,7 @@
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "The patient record to add",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -361,7 +369,8 @@
 								"required": [
 									"record"
 								],
-								"type": "object"
+								"type": "object",
+								"description": "The patient record to add"
 							}
 						}
 					}
