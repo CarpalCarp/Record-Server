@@ -4,7 +4,7 @@ import express, {
   Response,
   Request,
   NextFunction,
-} from "express";
+} from 'express';
 import { RegisterRoutes } from '../build/routes.ts';
 import { ValidateError } from 'tsoa';
 import path from 'path';
@@ -54,12 +54,6 @@ app.use(
 
 RegisterRoutes(app); // Used by tsoa
 
-// start the HTTP server (so socket.io and express share the same server)
-server.listen(BACKEND_PORT, () => {
-  console.log(`Server is running on http://localhost:${BACKEND_PORT}`);
-  console.log(`Swagger docs available at http://localhost:${BACKEND_PORT}/docs`);
-});
-
 app.use(function notFoundHandler(_req, res: Response) {
   res.status(404).send({
     message: "Not Found",
@@ -87,4 +81,10 @@ app.use(function errorHandler(
   }
 
   next();
+});
+
+// start the HTTP server (so socket.io and express share the same server)
+server.listen(BACKEND_PORT, () => {
+  console.log(`Server is running on http://localhost:${BACKEND_PORT}`);
+  console.log(`Swagger docs available at http://localhost:${BACKEND_PORT}/docs`);
 });

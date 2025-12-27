@@ -6,6 +6,7 @@
   ],
   "spec": {
     "outputDirectory": "build",
+    "basePath": "/api",
     "specVersion": 3
   },
   "routes": {

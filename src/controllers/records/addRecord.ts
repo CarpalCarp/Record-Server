@@ -29,7 +29,7 @@ export class AddRecordController extends Controller {
     };
     console.log('deps: ', deps);
     console.log('body: ', body);
-    const result = { type: 'ok', message: body } // addRecord(deps, body.record);
+    const result = { type: 'ok', message: body }; // addRecord(deps, body.record);
     if (result.type === 'ok') {
       this.setStatus(200);
       // return { message: result.message };

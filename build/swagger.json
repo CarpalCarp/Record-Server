@@ -7,6 +7,35 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"User": {
+				"properties": {
+					"username": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"age": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"username",
+					"firstName",
+					"lastName",
+					"email",
+					"age"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"Pick_Record.Exclude_keyofRecord.id__": {
 				"properties": {
 					"firstName": {
@@ -139,7 +168,68 @@
 		}
 	},
 	"paths": {
-		"/api/records/{id}": {
+		"/users": {
+			"post": {
+				"operationId": "AddUserController",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"message": {
+											"anyOf": [
+												{
+													"$ref": "#/components/schemas/User"
+												},
+												{
+													"type": "string"
+												}
+											]
+										}
+									},
+									"required": [
+										"message"
+									],
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "badRequest"
+					}
+				},
+				"description": "Add a user",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "The user to add",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"user": {
+										"$ref": "#/components/schemas/User"
+									}
+								},
+								"required": [
+									"user"
+								],
+								"type": "object",
+								"description": "The user to add"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/records/{id}": {
 			"put": {
 				"operationId": "UpdateRecordController",
 				"responses": {
@@ -292,7 +382,7 @@
 				]
 			}
 		},
-		"/api/records": {
+		"/records": {
 			"get": {
 				"operationId": "GetRecordsController",
 				"responses": {
@@ -380,7 +470,7 @@
 	},
 	"servers": [
 		{
-			"url": "/"
+			"url": "/api"
 		}
 	]
 }
