@@ -27,13 +27,10 @@ export class AddRecordController extends Controller {
     const deps = {
       recordStorage: new RecordStorage()
     };
-    console.log('deps: ', deps);
-    console.log('body: ', body);
-    const result = { type: 'ok', message: body }; // addRecord(deps, body.record);
+    const result = addRecord(deps, body.record);
     if (result.type === 'ok') {
       this.setStatus(200);
-      // return { message: result.message };
-      return { message: '' };
+      return { message: result.message };
     } else {
       throw new UnreachableCaseError();
     }

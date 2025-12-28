@@ -9,6 +9,10 @@
 		"schemas": {
 			"User": {
 				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
 					"username": {
 						"type": "string"
 					},
@@ -24,14 +28,17 @@
 					"age": {
 						"type": "number",
 						"format": "double"
+					},
+					"password": {
+						"type": "string"
 					}
 				},
 				"required": [
+					"id",
 					"username",
 					"firstName",
-					"lastName",
 					"email",
-					"age"
+					"password"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -169,6 +176,30 @@
 	},
 	"paths": {
 		"/users": {
+			"get": {
+				"operationId": "GetUsersController",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"Returns all users": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/User"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get all users",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": []
+			},
 			"post": {
 				"operationId": "AddUserController",
 				"responses": {
@@ -227,6 +258,50 @@
 						}
 					}
 				}
+			}
+		},
+		"/users/{id}": {
+			"delete": {
+				"operationId": "DeleteUserController",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"message"
+									],
+									"type": "object"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "User not found"
+					}
+				},
+				"description": "Removes a user",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "The ID of the user to remove",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/records/{id}": {
@@ -364,7 +439,7 @@
 						"description": "Record not found"
 					}
 				},
-				"description": "Removed a patient record",
+				"description": "Removes a patient record",
 				"tags": [
 					"Records"
 				],

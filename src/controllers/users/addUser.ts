@@ -1,6 +1,8 @@
 import { Controller, Post, Route, SuccessResponse, Tags, Response, Body } from 'tsoa';
 import { User } from '../../types/User';
 import { UnreachableCaseError } from '../../util/UnreachableCaseError';
+import { UserStorage } from '../../storage/UserStorage';
+import { IUserStorage } from '../../storage/IUserStorage';
 
 @Route('/users')
 export class AddUserController extends Controller {
@@ -22,7 +24,10 @@ export class AddUserController extends Controller {
   public async addUserController(
     @Body() body: { user: User }
   ): Promise<{ message: User | string }> {
-    const result = { type: 'ok', message: body };
+    const deps = {
+      userStorage: new UserStorage()
+    };
+    const result = addUser(deps, body.user);
 
     if (result.type === 'ok') {
       this.setStatus(200);
@@ -31,4 +36,14 @@ export class AddUserController extends Controller {
       throw new UnreachableCaseError();
     }
   }
+}
+
+interface Dependencies {
+  userStorage: IUserStorage
+}
+
+type Exits = { type: 'ok', message: string };
+
+export const addUser = (deps: Dependencies, user: User): Exits => {
+  return deps.userStorage.addUser(user);
 }

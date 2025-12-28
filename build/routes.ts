@@ -4,6 +4,10 @@
 import type { TsoaRoute } from '@tsoa/runtime';
 import {  fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { GetUsersController } from './../src/controllers/users/getUsers';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { DeleteUserController } from './../src/controllers/users/deleteUser';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AddUserController } from './../src/controllers/users/addUser';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { UpdateRecordController } from './../src/controllers/records/updateRecord';
@@ -25,11 +29,13 @@ const models: TsoaRoute.Models = {
     "User": {
         "dataType": "refObject",
         "properties": {
+            "id": {"dataType":"double","required":true},
             "username": {"dataType":"string","required":true},
             "firstName": {"dataType":"string","required":true},
-            "lastName": {"dataType":"string","required":true},
+            "lastName": {"dataType":"string"},
             "email": {"dataType":"string","required":true},
-            "age": {"dataType":"double","required":true},
+            "age": {"dataType":"double"},
+            "password": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },
@@ -80,6 +86,65 @@ export function RegisterRoutes(app: Router) {
 
 
     
+        const argsGetUsersController_getUsersController: Record<string, TsoaRoute.ParameterSchema> = {
+        };
+        app.get('/api/users',
+            ...(fetchMiddlewares<RequestHandler>(GetUsersController)),
+            ...(fetchMiddlewares<RequestHandler>(GetUsersController.prototype.getUsersController)),
+
+            async function GetUsersController_getUsersController(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsGetUsersController_getUsersController, request, response });
+
+                const controller = new GetUsersController();
+
+              await templateService.apiHandler({
+                methodName: 'getUsersController',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: 200,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsDeleteUserController_deleteUserController: Record<string, TsoaRoute.ParameterSchema> = {
+                id: {"in":"path","name":"id","required":true,"dataType":"string"},
+        };
+        app.delete('/api/users/:id',
+            ...(fetchMiddlewares<RequestHandler>(DeleteUserController)),
+            ...(fetchMiddlewares<RequestHandler>(DeleteUserController.prototype.deleteUserController)),
+
+            async function DeleteUserController_deleteUserController(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsDeleteUserController_deleteUserController, request, response });
+
+                const controller = new DeleteUserController();
+
+              await templateService.apiHandler({
+                methodName: 'deleteUserController',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: 200,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsAddUserController_addUserController: Record<string, TsoaRoute.ParameterSchema> = {
                 body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"user":{"ref":"User","required":true}}},
         };

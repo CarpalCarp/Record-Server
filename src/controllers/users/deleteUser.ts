@@ -1,32 +1,32 @@
-import { RecordStorage } from '../../storage/RecordStorage.ts';
-import { IRecordStorage } from '../../storage/IRecordStorage.ts';
 import { UnreachableCaseError } from '../../util/UnreachableCaseError.ts';
 import { Controller, Delete, Route, SuccessResponse, Tags, Response, Path } from 'tsoa';
+import { UserStorage } from '../../storage/UserStorage.ts';
+import { IUserStorage } from '../../storage/IUserStorage.ts';
 
-@Route('/records/:id')
-export class DeleteRecordController extends Controller {
+@Route('/users/:id')
+export class DeleteUserController extends Controller {
   /**
-   * Removes a patient record
-   * @param id The ID of the patient record to remove
+   * Removes a user
+   * @param id The ID of the user to remove
    */
   @Delete()
-  @Tags('Records')
+  @Tags('Users')
   @SuccessResponse(
     200,
     'OK'
   )
   @Response(
     404,
-    'Record not found'
+    'User not found'
   )
-  public async deleteRecordController(
+  public async deleteUserController(
     @Path() id: string
   ): Promise<{ message: string }> {
     const deps = {
-      recordStorage: new RecordStorage()
+      userStorage: new UserStorage()
     };
 
-    const result = deleteRecord(deps, id);
+    const result = deleteUser(deps, id);
     if (result.type === 'ok') {
       this.setStatus(200);
       return { message: result.message };
@@ -41,12 +41,12 @@ export class DeleteRecordController extends Controller {
 }
 
 interface Dependencies {
-  recordStorage: IRecordStorage
+  userStorage: IUserStorage
 }
 
 type Exits = { type: 'ok', message: string } |
 { type: 'notFound', message: string };
 
-export const deleteRecord = (deps: Dependencies, id: string): Exits => {
-  return deps.recordStorage.deleteRecord(id);
+export const deleteUser = (deps: Dependencies, id: string): Exits => {
+  return deps.userStorage.deleteUser(id);
 }

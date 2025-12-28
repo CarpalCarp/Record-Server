@@ -1,4 +1,4 @@
-import { IRecordStorage as IRecordStorage } from './IRecordStorage';
+import { IRecordStorage } from './IRecordStorage';
 import Database from 'better-sqlite3';
 import type { Record } from '../types/Record';
 const db = new Database('app.db');
@@ -11,7 +11,7 @@ export class RecordStorage implements IRecordStorage {
     try {
       return { type: 'ok', value: db.prepare(query).all() as Record[] };
     } catch (error) {
-      console.error('Error adding record: ', error);
+      console.error('Error retrieving records: ', error);
       return { type: 'ok', value: [] };
     }
   }
@@ -80,7 +80,6 @@ export class RecordStorage implements IRecordStorage {
     try {
       deleteRecord.run(id);
       return { type: 'ok', message: `Record with id: ${id} removed` };
-
     } catch (error) {
       throw new Error(`Error deleting record with id ${id}: ${error.message}`);
     }
