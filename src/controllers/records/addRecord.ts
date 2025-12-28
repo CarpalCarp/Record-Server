@@ -1,8 +1,25 @@
-import { Body, Controller, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
+import { Body, Controller, Example, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
 import { Record } from '../../types/Record';
 import { RecordStorage } from '../../storage/RecordStorage.ts';
 import { IRecordStorage } from '../../storage/IRecordStorage.ts';
 import { UnreachableCaseError } from '../../util/UnreachableCaseError.ts';
+
+const recordExample = {
+  record: {
+    id: 50,
+    firstName: 'John',
+    lastName: 'Doe',
+    age: 35,
+    description: 'Some description',
+    dateOfBirth: '07/15/1990',
+    email: 'john@gmail.com',
+    phone: '801-445-7495',
+    street: '123 S 456 W',
+    city: 'Denver',
+    state: 'Colorado',
+    zip: 84615
+  }
+}
 
 @Route('/records')
 export class AddRecordController extends Controller {
@@ -12,6 +29,7 @@ export class AddRecordController extends Controller {
    */
   @Post()
   @Tags('Records')
+  @Example(recordExample)
   @SuccessResponse(
     200,
     'OK'

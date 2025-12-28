@@ -544,6 +544,26 @@
 										"message"
 									],
 									"type": "object"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"record": {
+												"id": 50,
+												"firstName": "John",
+												"lastName": "Doe",
+												"age": 35,
+												"description": "Some description",
+												"dateOfBirth": "07/15/1990",
+												"email": "john@gmail.com",
+												"phone": "801-445-7495",
+												"street": "123 S 456 W",
+												"city": "Denver",
+												"state": "Colorado",
+												"zip": 84615
+											}
+										}
+									}
 								}
 							}
 						}
