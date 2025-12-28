@@ -23,7 +23,7 @@ const query = `
     id INTEGER PRIMARY KEY,
     username STRING NOT NULL,
     firstName STRING NOT NULL,
-    lastName STRING
+    lastName STRING,
     email STRING NOT NULL,
     age INTEGER,
     password STRING NOT NULL

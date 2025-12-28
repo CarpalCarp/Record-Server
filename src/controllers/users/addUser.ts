@@ -3,6 +3,9 @@ import { User } from '../../types/User';
 import { UnreachableCaseError } from '../../util/UnreachableCaseError';
 import { UserStorage } from '../../storage/UserStorage';
 import { IUserStorage } from '../../storage/IUserStorage';
+import * as bcrypt from 'bcrypt';
+
+const SALT_ROUNDS = 10;
 
 @Route('/users')
 export class AddUserController extends Controller {
@@ -27,11 +30,17 @@ export class AddUserController extends Controller {
     const deps = {
       userStorage: new UserStorage()
     };
-    const result = addUser(deps, body.user);
+
+    const hashedPassword = await bcrypt.hash(body.user.password, SALT_ROUNDS);
+    const user = {
+      ...body.user,
+      password: hashedPassword
+    }
+    const result = addUser(deps, user);
 
     if (result.type === 'ok') {
       this.setStatus(200);
-      return { message: body.user };
+      return { message: user };
     } else {
       throw new UnreachableCaseError();
     }

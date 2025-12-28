@@ -19,6 +19,8 @@ import { GetRecordByIdController } from './../src/controllers/records/getRecordB
 import { DeleteRecordController } from './../src/controllers/records/deleteRecord';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AddRecordController } from './../src/controllers/records/addRecord';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { LoginController } from './../src/controllers/login/login';
 import type { Request as ExRequest, Response as ExResponse, RequestHandler, Router } from 'express';
 
 
@@ -67,6 +69,11 @@ const models: TsoaRoute.Models = {
             "zip": {"dataType":"double","required":true},
         },
         "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Exits": {
+        "dataType": "refAlias",
+        "type": {"dataType":"union","subSchemas":[{"dataType":"nestedObjectLiteral","nestedProperties":{"type":{"dataType":"enum","enums":["ok"],"required":true}}},{"dataType":"nestedObjectLiteral","nestedProperties":{"message":{"dataType":"string","required":true},"type":{"dataType":"enum","enums":["Unauthorized"],"required":true}}}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
@@ -314,6 +321,36 @@ export function RegisterRoutes(app: Router) {
 
               await templateService.apiHandler({
                 methodName: 'addRecordController',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: 200,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsLoginController_loginController: Record<string, TsoaRoute.ParameterSchema> = {
+                body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"password":{"dataType":"string","required":true},"username":{"dataType":"string","required":true}}},
+        };
+        app.post('/api/login',
+            ...(fetchMiddlewares<RequestHandler>(LoginController)),
+            ...(fetchMiddlewares<RequestHandler>(LoginController.prototype.loginController)),
+
+            async function LoginController_loginController(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsLoginController_loginController, request, response });
+
+                const controller = new LoginController();
+
+              await templateService.apiHandler({
+                methodName: 'loginController',
                 controller,
                 response,
                 next,

@@ -159,6 +159,44 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"Exits": {
+				"anyOf": [
+					{
+						"properties": {
+							"type": {
+								"type": "string",
+								"enum": [
+									"ok"
+								],
+								"nullable": false
+							}
+						},
+						"required": [
+							"type"
+						],
+						"type": "object"
+					},
+					{
+						"properties": {
+							"message": {
+								"type": "string"
+							},
+							"type": {
+								"type": "string",
+								"enum": [
+									"Unauthorized"
+								],
+								"nullable": false
+							}
+						},
+						"required": [
+							"message",
+							"type"
+						],
+						"type": "object"
+					}
+				]
 			}
 		},
 		"securitySchemes": {}
@@ -533,6 +571,56 @@
 								},
 								"required": [
 									"record"
+								],
+								"type": "object",
+								"description": "The patient record to add"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/login": {
+			"post": {
+				"operationId": "LoginController",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Exits"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					}
+				},
+				"description": "Add a patient record",
+				"tags": [
+					"Login"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "The patient record to add",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"password": {
+										"type": "string"
+									},
+									"username": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"password",
+									"username"
 								],
 								"type": "object",
 								"description": "The patient record to add"

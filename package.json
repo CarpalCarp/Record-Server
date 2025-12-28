@@ -14,6 +14,7 @@
   "author": "Matias Galante",
   "license": "MIT",
   "dependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/better-sqlite3": "^7.6.13",
     "@types/chai": "^5.2.2",
     "@types/cors": "^2.8.19",
