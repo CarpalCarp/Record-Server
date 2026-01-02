@@ -12,11 +12,12 @@ import { Server } from 'socket.io';
 import http from 'http';
 import swaggerUi from 'swagger-ui-express';
 import swaggerData from '../build/swagger.json';
+import { setupSockets } from './sockets/socket.controller.ts';
 
 const BACKEND_PORT = 3000;
 const FRONTEND_PORT = 4200;
 const app = express();
-const server = http.createServer(app);
+const httpServer = http.createServer(app);
 
 const corsOptions = {
   origin: [`http://localhost:${FRONTEND_PORT}`, 'http://localhost'], // http://localhost:PORT is for local front end without nginx
@@ -25,13 +26,11 @@ const corsOptions = {
   credentials: true // Enable passing credentials (cookies, auth headers)
 };
 
-const io = new Server(server, {
+const io = new Server(httpServer, {
   cors: corsOptions
 });
 
-io.on('connection', (socket) => {
-  console.log('hello socket.io client connected', socket.id);
-});
+setupSockets(io);
 
 app.use(cors(corsOptions));
 
@@ -84,7 +83,7 @@ app.use(function errorHandler(
 });
 
 // start the HTTP server (so socket.io and express share the same server)
-server.listen(BACKEND_PORT, () => {
+httpServer.listen(BACKEND_PORT, () => {
   console.log(`Server is running on http://localhost:${BACKEND_PORT}`);
   console.log(`Swagger docs available at http://localhost:${BACKEND_PORT}/docs`);
 });
